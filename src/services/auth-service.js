@@ -9,7 +9,9 @@ export default class AuthService {
       ? "http://localhost:3000/login"
       : `${process.env.DOMAIN}/login`;
 
+    //this allows the authorization to the church website to occur by opening the window in a new tab
     window.open(`${authUrl}/?redirect=${redirectUri}/&site=ag`);
+
     axios
       .get(`${authUrl}/?redirect=${redirectUri}/&site=ag`)
       .then((res) => {
