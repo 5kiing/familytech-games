@@ -33,7 +33,7 @@ function Square(props) {
           readOnly={key_character === "*" || key_character === "&"}
           style={
             key_character == "*"
-              ? { backgroundColor: "black", borderColor: "black" }
+              ? { backgroundColor: "#2E1D6B", borderColor: "#2E1D6B" }
               : key_character == "&"
               ? {
                   backgroundColor: "white",
@@ -41,15 +41,13 @@ function Square(props) {
                   width: 0,
                   border: 0,
                 }
-              : { backgroundColor: "white", borderColor: "black" }
+              : { backgroundColor: "white", borderColor: "#2E1D6B" }
           }
           maxLength={1}
           type="text"
           onChange={handleChange}
           onKeyDown={handleDownKey}
-          disabled={
-            key_character === "*" || key_character === "&"
-          }
+          disabled={key_character === "*" || key_character === "&"}
         ></input>
       </div>
     </>
