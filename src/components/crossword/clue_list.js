@@ -2,8 +2,46 @@ import Clue from "./clue";
 import { useEffect, useState } from "react";
 
 function ClueList(props) {
-  let { verticalClues, horizontalClues, result } = props;
-  const [clueList, setClueList] = useState({VERTICAL: verticalClues, HORIZONTAL:horizontalClues});
+  let { verticalClues, horizontalClues, result, setActiveLocation } = props;
+
+  //Brandon change
+  function handleClueClick(clueNumber, direction) {
+    // Find the square associated with the clicked clue
+    if (direction === "VERTICAL") {
+      const square = verticalClues.find(
+        (item) => item.CLUE_NUMBER === clueNumber
+      );
+      console.log("Found square:", square);
+      if (square) {
+        setActiveLocation({
+          row: square.ROW,
+          col: square.COL,
+          clue_num: square.CLUE_NUMBER,
+          direction: direction,
+        });
+      }
+    }
+
+    if (direction === "HORIZONTAL") {
+      const square = horizontalClues.find(
+        (item) => item.CLUE_NUMBER === clueNumber
+      );
+      console.log("Found square:", square);
+      if (square) {
+        setActiveLocation({
+          row: square.ROW,
+          col: square.COL,
+          clue_num: square.CLUE_NUMBER,
+          direction: direction,
+        });
+      }
+    }
+  }
+
+  const [clueList, setClueList] = useState({
+    VERTICAL: verticalClues,
+    HORIZONTAL: horizontalClues,
+  });
   useEffect(() => {
     setClueList(makeClueList());
   }, []);
@@ -14,23 +52,25 @@ function ClueList(props) {
     for (let i = 0; i < horizontalClues.length; i++) {
       horizontalClues[i].CLUE = horizontalClues[i].WORD;
     }
-    let clues = {VERTICAL: verticalClues, HORIZONTAL: horizontalClues}
+    let clues = { VERTICAL: verticalClues, HORIZONTAL: horizontalClues };
     return clues;
   }
   clueList.VERTICAL.sort((a, b) => a.CLUE_NUMBER - b.CLUE_NUMBER);
-  clueList.HORIZONTAL.sort((a, b) => a.CLUE_NUMBER - b.CLUE_NUMBER); 
+  clueList.HORIZONTAL.sort((a, b) => a.CLUE_NUMBER - b.CLUE_NUMBER);
 
   for (let i = 0; i < clueList.VERTICAL.length; i++) {
-    let hint = result.find(item => item.answer === clueList.VERTICAL[i].WORD);
+    let hint = result.find((item) => item.answer === clueList.VERTICAL[i].WORD);
     if (hint != null) {
-      clueList.VERTICAL[i].CLUE = hint.clue
+      clueList.VERTICAL[i].CLUE = hint.clue;
     }
   }
 
   for (let i = 0; i < clueList.HORIZONTAL.length; i++) {
-    let hint = result.find(item => item.answer === clueList.HORIZONTAL[i].WORD);
+    let hint = result.find(
+      (item) => item.answer === clueList.HORIZONTAL[i].WORD
+    );
     if (hint != null) {
-      clueList.HORIZONTAL[i].CLUE = hint.clue
+      clueList.HORIZONTAL[i].CLUE = hint.clue;
     }
   }
 
@@ -41,8 +81,17 @@ function ClueList(props) {
         <h2>Down</h2>
         {clueList.VERTICAL.map((clues) => {
           return (
-            <div key={clues.CLUE_NUMBER}>
-              <Clue number={clues.CLUE_NUMBER} word={clues.WORD} clue={clues.CLUE} />
+            <div // Brandon Change
+              key={clues.CLUE_NUMBER}
+            >
+              <Clue
+                number={clues.CLUE_NUMBER}
+                word={clues.WORD}
+                clue={clues.CLUE}
+                // Brandon Change
+                setActiveLocation={setActiveLocation}
+                onClick={() => handleClueClick(clues.CLUE_NUMBER, "VERTICAL")}
+              />
             </div>
           );
         })}
@@ -50,7 +99,13 @@ function ClueList(props) {
         {clueList.HORIZONTAL.map((clues) => {
           return (
             <div key={clues.CLUE_NUMBER}>
-              <Clue number={clues.CLUE_NUMBER} word={clues.WORD} clue={clues.CLUE} />
+              <Clue
+                number={clues.CLUE_NUMBER}
+                word={clues.WORD}
+                clue={clues.CLUE}
+                // Brandon Change
+                onClick={() => handleClueClick(clues.CLUE_NUMBER, "HORIZONTAL")}
+              />
             </div>
           );
         })}

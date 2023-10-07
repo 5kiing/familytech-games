@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Modal } from "@mui/material";
 import Person from "@/components/person";
 import { useUser } from "@/contexts/UserContext";
@@ -6,7 +6,7 @@ import { useUser } from "@/contexts/UserContext";
 function Clue(props) {
   const { number, word, clue } = props;
   const [displayClue, setDisplayClue] = useState(true);
-  const [showPersonInfo, setShowPersonInfo] = useState(false); 
+  const [showPersonInfo, setShowPersonInfo] = useState(false);
   const [currentPerson, setCurrentPerson] = useState(null);
   const { userFSData } = useUser();
 
@@ -17,11 +17,16 @@ function Clue(props) {
   }
 
   // Shows the person Modal when their name is clicked (little convoluted, maybe fix later)
-  function handleNameClick() { 
+  function handleNameClick() {
     if (!displayClue) {
-      const transformedMap = new Map([...userFSData.entries()].map(([key, value]) => [value.name.compressedName, { key }]));
-      const foundPerson = transformedMap.get(word)
-      const realFoundPerson = userFSData.get(Object.values(foundPerson)[0])
+      const transformedMap = new Map(
+        [...userFSData.entries()].map(([key, value]) => [
+          value.name.compressedName,
+          { key },
+        ])
+      );
+      const foundPerson = transformedMap.get(word);
+      const realFoundPerson = userFSData.get(Object.values(foundPerson)[0]);
       if (foundPerson) {
         setCurrentPerson(realFoundPerson);
         setShowPersonInfo(true);
@@ -29,20 +34,24 @@ function Clue(props) {
     }
   }
 
-  // useEffect(() => {
-  //   setDisplayClue(false);
-  // }, []);
+  //Brandon's changes
+  const handleClueClick = () => {
+    if (!displayClue) {
+      handleNameClick();
+    }
+    if (props.onClick) {
+      console.log("Did it work?");
+      props.onClick();
+    }
+  };
 
   return (
     <>
-      <div 
-        onContextMenu={handleContextMenu}
-        onClick={displayClue ? null : handleNameClick}
-      >
+      <div onContextMenu={handleContextMenu} onClick={handleClueClick}>
         {number + ". " + (displayClue ? clue : word)}
       </div>
       <Modal open={showPersonInfo} onClose={() => setShowPersonInfo(false)}>
-        <Person personData={currentPerson}/>
+        <Person personData={currentPerson} />
       </Modal>
     </>
   );

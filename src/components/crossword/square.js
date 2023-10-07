@@ -11,6 +11,7 @@ function Square(props) {
     clueNumber,
     dimensions,
     inputLocation,
+    activeLocation = { direction: null, row: null, col: null },
   } = props;
 
   function handleChange(event) {
@@ -21,28 +22,67 @@ function Square(props) {
     handleKeyDown(event, row, col, inputLocation);
   }
 
+  // Brandon changes
+  const isActive = () => {
+    // console.log("isActive was hit", activeLocation);
+    if (
+      activeLocation &&
+      activeLocation.direction === "HORIZONTAL" &&
+      row === activeLocation.row
+    ) {
+      return true;
+    } else if (
+      activeLocation &&
+      activeLocation.direction === "VERTICAL" &&
+      col === activeLocation.col
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  const squareClassName = isActive()
+    ? `${styles.square} ${styles["activeSquare"]}`
+    : styles.square;
+
   return (
     <>
       <div className={styles.div}>
         {clueNumber != 0 ? <p className={styles.number}>{clueNumber}</p> : null}
         <input
-          ref={(element) =>
-            (inputLocation.current[row * dimensions + col] = element)
-          }
-          className={styles.square}
+          ref={(element) => {
+            inputLocation.current[row * dimensions + col] = element;
+            // console.log(
+            //   "This is the row, col, dimensions, key_character, character, clueNumber",
+            //   row,
+            //   col,
+            //   dimensions,
+            //   key_character,
+            //   character,
+            //   clueNumber
+            // );
+            // console.log("element", element);
+          }}
+          // Brandon Changes
+          className={squareClassName}
           readOnly={key_character === "*" || key_character === "&"}
-          style={
-            key_character == "*"
+          style={{
+            ...(key_character == "*"
               ? { backgroundColor: "#2E1D6B", borderColor: "#2E1D6B" }
-              : key_character == "&"
-              ? {
-                  backgroundColor: "white",
-                  height: 0,
-                  width: 0,
-                  border: 0,
-                }
-              : { backgroundColor: "white", borderColor: "#2E1D6B" }
-          }
+              : {}),
+            ...(key_character == "&"
+              ? { backgroundColor: "white", height: 0, width: 0, border: 0 }
+              : {}),
+            ...(key_character !== "*" && key_character !== "&"
+              ? { backgroundColor: "white", borderColor: "#2E1D6B" }
+              : {}),
+            //Can't get the colors to changes
+            ...(activeLocation &&
+            activeLocation.row == row &&
+            activeLocation.col == col
+              ? { borderColor: "red", borderWidth: "3px" }
+              : {}),
+          }}
           maxLength={1}
           type="text"
           onChange={handleChange}
