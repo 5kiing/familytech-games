@@ -37,6 +37,7 @@ function Clue(props) {
   //Brandon's changes
   const handleClueClick = () => {
     if (!displayClue) {
+      console.log("handleNameClick");
       handleNameClick();
     }
     if (props.onClick) {

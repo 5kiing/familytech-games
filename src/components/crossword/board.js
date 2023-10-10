@@ -737,7 +737,8 @@ function Board() {
             </div>
           );
         })}
-        {(START_SQUARES = [])}
+        {/* This was resetting the square's and deleting the numbers. Not sure how important it was */}
+        {/* {(START_SQUARES = [])} */}
       </div>
       <ClueList
         verticalClues={vertClues}

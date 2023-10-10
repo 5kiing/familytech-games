@@ -22,49 +22,17 @@ function Square(props) {
     handleKeyDown(event, row, col, inputLocation);
   }
 
-  // Brandon changes
-  const isActive = () => {
-    // console.log("isActive was hit", activeLocation);
-    if (
-      activeLocation &&
-      activeLocation.direction === "HORIZONTAL" &&
-      row === activeLocation.row
-    ) {
-      return true;
-    } else if (
-      activeLocation &&
-      activeLocation.direction === "VERTICAL" &&
-      col === activeLocation.col
-    ) {
-      return true;
-    }
-    return false;
-  };
-
-  const squareClassName = isActive()
-    ? `${styles.square} ${styles["activeSquare"]}`
-    : styles.square;
-
   return (
     <>
       <div className={styles.div}>
         {clueNumber != 0 ? <p className={styles.number}>{clueNumber}</p> : null}
+        {console.log(clueNumber)}
         <input
           ref={(element) => {
             inputLocation.current[row * dimensions + col] = element;
-            // console.log(
-            //   "This is the row, col, dimensions, key_character, character, clueNumber",
-            //   row,
-            //   col,
-            //   dimensions,
-            //   key_character,
-            //   character,
-            //   clueNumber
-            // );
-            // console.log("element", element);
           }}
           // Brandon Changes
-          className={squareClassName}
+          className={styles.square}
           readOnly={key_character === "*" || key_character === "&"}
           style={{
             ...(key_character == "*"
