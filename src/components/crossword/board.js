@@ -5,6 +5,7 @@ import ClueList from "./clue_list";
 import { Modal } from "@mui/material";
 import { useUser } from "@/contexts/UserContext";
 import axios from "axios";
+import Timer from "./timer";
 
 let START_SQUARES = [];
 
@@ -39,6 +40,9 @@ function Board() {
   const [loading, setLoading] = useState(true);
   const [puzzleIsCorrect, setPuzzleIsCorrect] = useState(false);
   const inputLocation = useRef(new Array());
+
+  // Brandon changes
+  const [activeLocation, setActiveLocation] = useState(null);
 
   //Tells the page if it should be loading to make sure the clues are all set up before it is shown to the user
   useEffect(() => {
@@ -486,6 +490,8 @@ function Board() {
                 e.COL == collision.col - firstPart.length
             )[0]
           ) + 1,
+        ROW: firstRow,
+        COL: firstCol,
       });
     }
     if (direction == "vertical") {
@@ -533,6 +539,8 @@ function Board() {
                 e.COL == collision.col
             )[0]
           ) + 1,
+        ROW: firstRow,
+        COL: firstCol,
       });
       setVertClues(VERTICAL_WORDS);
     }
@@ -686,6 +694,8 @@ function Board() {
               (e) => e.ROW == rowIndex && e.COL == colIndex
             )[0]
           ) + 1,
+        ROW: rowIndex,
+        COL: colIndex,
       });
       setHorClues(HORIZONTAL_WORDS);
       REMAINING_WORDS.splice(wordIndex, 1);
@@ -715,6 +725,7 @@ function Board() {
   return !loading ? (
     <>
       <div>
+        <Timer />
         {board.map((rows) => {
           return (
             <div className={styles.div} key={rows.id}>
@@ -742,6 +753,7 @@ function Board() {
                     handleKeyDown={handleKeyDown}
                     dimensions={DIMENSIONS}
                     inputLocation={inputLocation}
+                    activeLocation={activeLocation}
                     isCorrect={isCorrect} // Pass the correctness information to the Square component
                   />
                 );
@@ -749,12 +761,14 @@ function Board() {
             </div>
           );
         })}
-        {(START_SQUARES = [])}
+        {/* This was resetting the square's and deleting the numbers. Not sure how important it was */}
+        {/* {(START_SQUARES = [])} */}
       </div>
       <ClueList
         verticalClues={vertClues}
         horizontalClues={horClues}
         result={clues}
+        setActiveLocation={setActiveLocation}
       />
       <Modal open={puzzleIsCorrect} onClose={() => setPuzzleIsCorrect(false)}>
         <div className={styles.modal_container}>

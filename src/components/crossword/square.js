@@ -12,6 +12,7 @@ function Square(props) {
     clueNumber,
     dimensions,
     inputLocation,
+    activeLocation = { direction: null, row: null, col: null },
   } = props;
 
   function handleChange(event) {
@@ -44,24 +45,31 @@ function Square(props) {
     <>
       <div className={styles.div}>
         {clueNumber != 0 ? <p className={styles.number}>{clueNumber}</p> : null}
+        {console.log(clueNumber)}
         <input
-          ref={(element) =>
-            (inputLocation.current[row * dimensions + col] = element)
-          }
+          ref={(element) => {
+            inputLocation.current[row * dimensions + col] = element;
+          }}
+          // Brandon Changes
           className={styles.square}
           readOnly={key_character === "*" || key_character === "&"}
-          style={
-            key_character == "*"
-              ? { backgroundColor: "black", borderColor: "black" }
-              : key_character == "&"
-              ? {
-                  backgroundColor: "white",
-                  height: 0,
-                  width: 0,
-                  border: 0,
-                }
-              : { backgroundColor: "white", borderColor: "black" }
-          }
+          style={{
+            ...(key_character == "*"
+              ? { backgroundColor: "#2E1D6B", borderColor: "#2E1D6B" }
+              : {}),
+            ...(key_character == "&"
+              ? { backgroundColor: "white", height: 0, width: 0, border: 0 }
+              : {}),
+            ...(key_character !== "*" && key_character !== "&"
+              ? { backgroundColor: "white", borderColor: "#2E1D6B" }
+              : {}),
+            //Can't get the colors to changes
+            ...(activeLocation &&
+            activeLocation.row == row &&
+            activeLocation.col == col
+              ? { borderColor: "red", borderWidth: "3px" }
+              : {}),
+          }}
           maxLength={1}
           type="text"
           onChange={handleChange}

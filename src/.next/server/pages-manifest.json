@@ -4,6 +4,10 @@
   "/_error": "pages/_error.js",
   "/crossword": "pages/crossword.js",
   "/": "pages/index.js",
+<<<<<<< HEAD
   "/api/questiongenerator": "pages/api/questiongenerator.js",
   "/login": "pages/login.js"
+=======
+  "/api/questiongenerator": "pages/api/questiongenerator.js"
+>>>>>>> brandon-branch
 }
