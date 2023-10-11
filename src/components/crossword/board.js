@@ -89,10 +89,28 @@ function Board() {
     }
   }, []);
 
+  // State to keep track of correctness for each square
+  const [correctSquares, setCorrectSquares] = useState(
+    Array(DIMENSIONS).fill(Array(DIMENSIONS).fill(false))
+  );
+
   // Handles what happens when a letter is changed on the board
   function handleSquareInput(letter, row, col, inputLocation) {
     let newBoard = board;
     newBoard[row].CURRENT_ROW[col].CHARACTER = letter;
+
+    if (
+      board[row] &&
+      board[row].CURRENT_ROW &&
+      board[row].CURRENT_ROW[col] &&
+      letter.toLowerCase() ===
+        board[row].CURRENT_ROW[col].KEY_CHARACTER.toLowerCase()
+    ) {
+      const updatedCorrectSquares = [...correctSquares];
+      updatedCorrectSquares[row][col] = true;
+      setCorrectSquares(updatedCorrectSquares);
+    }
+
     setBoard(newBoard);
     setPuzzleIsCorrect(checkIfFinished());
     if (inputLocation.current[row * DIMENSIONS + col].value == "") {
@@ -701,6 +719,9 @@ function Board() {
           return (
             <div className={styles.div} key={rows.id}>
               {rows.CURRENT_ROW.map((rowItems) => {
+                // Calculate the index for the correctness state
+                const correctIndex = rowItems.ROW * DIMENSIONS + rowItems.COL;
+                const isCorrect = correctSquares[rowItems.ROW][rowItems.COL];
                 {
                   clueNumber =
                     START_SQUARES.indexOf(
@@ -721,6 +742,7 @@ function Board() {
                     handleKeyDown={handleKeyDown}
                     dimensions={DIMENSIONS}
                     inputLocation={inputLocation}
+                    isCorrect={isCorrect} // Pass the correctness information to the Square component
                   />
                 );
               })}
