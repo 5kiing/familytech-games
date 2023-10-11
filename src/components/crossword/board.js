@@ -5,6 +5,7 @@ import ClueList from "./clue_list";
 import { Modal } from "@mui/material";
 import { useUser } from "@/contexts/UserContext";
 import axios from "axios";
+import Timer from "./timer";
 
 let START_SQUARES = [];
 
@@ -706,6 +707,7 @@ function Board() {
   return !loading ? (
     <>
       <div>
+        <Timer />
         {board.map((rows) => {
           return (
             <div className={styles.div} key={rows.id}>
