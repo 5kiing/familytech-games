@@ -11,10 +11,25 @@ const Timer = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Convert the time into MM:SS format
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+
+  // Add leading zeros to ensure the time is displayed as 00:00
+  const formattedTime = `${minutes.toString().padStart(2, "0")}:${seconds
+    .toString()
+    .padStart(2, "0")}`;
+
+  // Define CSS styles for bold text and increased font size
+  const timerStyle = {
+    fontWeight: "bold",
+    fontSize: "36px", // You can adjust the font size as needed
+  };
+
   return (
     <div>
       <h1>Timer</h1>
-      <p>{time}</p>
+      <p style={timerStyle}>{formattedTime}</p>
     </div>
   );
 };

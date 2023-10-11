@@ -3,5 +3,7 @@
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
   "/": "pages/index.js",
+  "/login": "pages/login.js",
+  "/crossword": "pages/crossword.js",
   "/api/questiongenerator": "pages/api/questiongenerator.js"
 }
