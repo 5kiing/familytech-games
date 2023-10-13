@@ -55,13 +55,13 @@ function Square(props) {
           readOnly={key_character === "*" || key_character === "&"}
           style={{
             ...(key_character == "*"
-              ? { backgroundColor: "#2E1D6B", borderColor: "#2E1D6B" }
+              ? { backgroundColor: "#2a3492", borderColor: "#2a3492" }
               : {}),
             ...(key_character == "&"
               ? { backgroundColor: "white", height: 0, width: 0, border: 0 }
               : {}),
             ...(key_character !== "*" && key_character !== "&"
-              ? { backgroundColor: "white", borderColor: "#2E1D6B" }
+              ? { backgroundColor: "white", borderColor: "#2a3492" }
               : {}),
             //Can't get the colors to changes
             ...(activeLocation &&

@@ -23,7 +23,7 @@ const Timer = () => {
   // Define CSS styles for bold text and increased font size
   const timerStyle = {
     fontWeight: "bold",
-    fontSize: "36px", // You can adjust the font size as needed
+    fontSize: "24px", // You can adjust the font size as needed
   };
 
   return (

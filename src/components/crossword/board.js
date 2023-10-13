@@ -6,6 +6,8 @@ import { Modal } from "@mui/material";
 import { useUser } from "@/contexts/UserContext";
 import axios from "axios";
 import Timer from "./timer";
+import RefreshButton from "./new_game";
+import { Refresh } from "@mui/icons-material";
 
 let START_SQUARES = [];
 
@@ -763,6 +765,8 @@ function Board() {
         })}
         {/* This was resetting the square's and deleting the numbers. Not sure how important it was */}
         {/* {(START_SQUARES = [])} */}
+        <br />
+        <RefreshButton />
       </div>
       <ClueList
         verticalClues={vertClues}
