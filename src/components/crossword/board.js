@@ -37,6 +37,7 @@ function Board() {
   const [vertClues, setVertClues] = useState([]);
   const [horClues, setHorClues] = useState([]);
   const [loading, setLoading] = useState(true);
+  // Brandon change
   const [puzzleIsCorrect, setPuzzleIsCorrect] = useState(false);
   const inputLocation = useRef(new Array());
 
@@ -746,6 +747,7 @@ function Board() {
         result={clues}
         setActiveLocation={setActiveLocation}
       />
+      {/* this modal pops up when complete the puzzle */}
       <Modal open={puzzleIsCorrect} onClose={() => setPuzzleIsCorrect(false)}>
         <div className={styles.modal_container}>
           <button
@@ -755,6 +757,7 @@ function Board() {
             X
           </button>
           <h3>Congrats on solving the Crossword! </h3>
+          <h5>Your time was: </h5>
         </div>
       </Modal>
     </>

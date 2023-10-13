@@ -22,6 +22,8 @@ function Square(props) {
     handleKeyDown(event, row, col, inputLocation);
   }
 
+  //create a function that get's called when all the squares have been filled
+
   return (
     <>
       <div className={styles.div}>
