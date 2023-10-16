@@ -49,13 +49,13 @@ function Board() {
   const [completionTime, setCompletionTime] = useState(0);
 
   //makes the win modal appear after 20 seconds. Brandon Changes
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setPuzzleIsCorrect(true);
-    }, 10000); // 20000 milliseconds = 20 seconds
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     setPuzzleIsCorrect(true);
+  //   }, 10000); // 20000 milliseconds = 20 seconds
 
-    return () => clearTimeout(timeout); // Clear the timeout if the component unmounts
-  }, []);
+  //   return () => clearTimeout(timeout); // Clear the timeout if the component unmounts
+  // }, []);
 
   //Tells the page if it should be loading to make sure the clues are all set up before it is shown to the user
   useEffect(() => {

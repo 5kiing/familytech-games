@@ -131,11 +131,7 @@
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	!function() {
-<<<<<<< HEAD
-/******/ 		__webpack_require__.h = function() { return "ef8e1f08d64980ae"; }
-=======
-/******/ 		__webpack_require__.h = function() { return "256834da1c91e8c8"; }
->>>>>>> origin/brandon-branch-2
+/******/ 		__webpack_require__.h = function() { return "8ac48dcd06a379d0"; }
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
