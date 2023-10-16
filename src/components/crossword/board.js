@@ -50,7 +50,7 @@ function Board() {
   useEffect(() => {
     const timeout = setTimeout(() => {
       setPuzzleIsCorrect(true);
-    }, 20000); // 20000 milliseconds = 20 seconds
+    }, 10000); // 20000 milliseconds = 20 seconds
 
     return () => clearTimeout(timeout); // Clear the timeout if the component unmounts
   }, []);
@@ -738,9 +738,10 @@ function Board() {
     <>
       <div>
         <Timer
-          onComplete={(time) => {
-            setCompletionTime(time);
+          onComplete={(formattedTime) => {
+            setCompletionTime(formattedTime);
           }}
+          isPuzzleComplete={puzzleIsCorrect}
         />
         {board.map((rows) => {
           return (
