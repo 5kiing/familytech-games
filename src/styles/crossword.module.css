@@ -53,12 +53,12 @@
   z-index: 2;
   text-align: center;
   background-color: #f6daf7;
-  background-color: #ffc7c7;
+  background-color: #ffffff;
   width: 50%;
   height: fit-content;
   top: 20%;
   left: 50%;
-  margin-left: -5%; /* Negative half of width. was 25*/
+  margin-left: -2%; /* Negative half of width. was 25*/
   border-radius: 5px;
 }
 

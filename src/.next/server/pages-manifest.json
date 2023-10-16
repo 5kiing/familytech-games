@@ -2,8 +2,14 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
+<<<<<<< HEAD
   "/": "pages/index.js",
   "/crossword": "pages/crossword.js",
   "/api/questiongenerator": "pages/api/questiongenerator.js",
   "/login": "pages/login.js"
+=======
+  "/login": "pages/login.js",
+  "/": "pages/index.js",
+  "/api/questiongenerator": "pages/api/questiongenerator.js"
+>>>>>>> origin/brandon-branch-2
 }

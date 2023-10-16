@@ -40,11 +40,22 @@ function Board() {
   const [vertClues, setVertClues] = useState([]);
   const [horClues, setHorClues] = useState([]);
   const [loading, setLoading] = useState(true);
+  //changed to true so modal can appear
   const [puzzleIsCorrect, setPuzzleIsCorrect] = useState(false);
   const inputLocation = useRef(new Array());
 
   // Brandon changes
   const [activeLocation, setActiveLocation] = useState(null);
+  const [completionTime, setCompletionTime] = useState(0);
+
+  //makes the win modal appear after 20 seconds. Brandon Changes
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setPuzzleIsCorrect(true);
+    }, 10000); // 20000 milliseconds = 20 seconds
+
+    return () => clearTimeout(timeout); // Clear the timeout if the component unmounts
+  }, []);
 
   //Tells the page if it should be loading to make sure the clues are all set up before it is shown to the user
   useEffect(() => {
@@ -724,10 +735,16 @@ function Board() {
   }
 
   let clueNumber = -1;
+
   return !loading ? (
     <>
       <div>
-        <Timer />
+        <Timer
+          onComplete={(formattedTime) => {
+            setCompletionTime(formattedTime);
+          }}
+          isPuzzleComplete={puzzleIsCorrect}
+        />
         {board.map((rows) => {
           return (
             <div className={styles.div} key={rows.id}>
@@ -783,6 +800,7 @@ function Board() {
             X
           </button>
           <h3>Congrats on solving the Crossword! </h3>
+          <h4>Your time was: {completionTime}</h4>
         </div>
       </Modal>
     </>

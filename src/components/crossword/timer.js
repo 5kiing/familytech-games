@@ -1,15 +1,24 @@
 import { useEffect, useState } from "react";
 
-const Timer = () => {
+const Timer = ({ onComplete, isPuzzleComplete }) => {
   const [time, setTime] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTime((prevTime) => prevTime + 1);
+      if (!isPuzzleComplete) {
+        // Only increment the time if the puzzle is not complete
+        setTime((prevTime) => prevTime + 1);
+      }
     }, 1000);
 
+    // Check if the puzzle is complete and trigger the callback
+    if (isPuzzleComplete) {
+      clearInterval(interval); // Stop the timer
+      onComplete(formattedTime); // Call the onComplete callback with the elapsed time
+    }
+
     return () => clearInterval(interval);
-  }, []);
+  }, [isPuzzleComplete, onComplete]);
 
   // Convert the time into MM:SS format
   const minutes = Math.floor(time / 60);
